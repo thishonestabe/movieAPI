@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Movie = require('./movies.model');
+const verify = require('../common/verifyToken');
 
 //get all movies.
 router.get('/getmovies', async (req, res) => {
@@ -34,7 +35,7 @@ router.get('/filtermovies', async (req, res) => {
     }
 });
 //create a movie.
-router.post('/createmovie', async (req, res) =>{
+router.post('/createmovie', verify ,async (req, res) =>{
     console.log(req.body)
     const movie = new Movie.movieSchema({
         title: req.body.title,
