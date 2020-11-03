@@ -3,6 +3,7 @@ const path = require('path');
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+require('dotenv/config');
 //const errorController = require('./controllers/error');
 
 let port = process.env.PORT || 3000;
@@ -11,7 +12,9 @@ const app = express();
 
 
 
-mongoose.connect('mongodb+srv://abraham:movie2020@cluster0.ln89w.mongodb.net/movieproject?retryWrites=true&w=majority', () => {
+mongoose.connect(process.env.DB_CONNECTION,
+    { useNewUrlParser: true, useUnifiedTopology: true },
+    () => {
     console.log('conected to db');
 })
 
