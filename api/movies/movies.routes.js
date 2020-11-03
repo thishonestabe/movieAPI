@@ -21,7 +21,18 @@ router.get('/getmoviebyid/:id',async (req, res) => {
     }
 });
 //filter movies by.
-router.get('/filtermovies/',);// skjf
+router.get('/filtermovies', async (req, res) => {
+    let filter = {}
+    for( const property in req.body) {
+        filter[property] = req.body[property];
+    }
+    try {
+        const movies = await Movie.movieSchema.find(filter);
+        res.json(movies);
+    }catch (err) {
+        res.json({message: err})
+    }
+});
 //create a movie.
 router.post('/createmovie', async (req, res) =>{
     console.log(req.body)
