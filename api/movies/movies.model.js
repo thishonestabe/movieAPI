@@ -19,6 +19,11 @@ MovieSchema = mongoose.Schema({
         type:String,
         required: true
     },
+    available: {
+        type: Boolean,
+        default: true,
+        required: true
+    }
 });
 exports.movieSchema = mongoose.model('Movie', MovieSchema);
 //const Cart = require('./cart');

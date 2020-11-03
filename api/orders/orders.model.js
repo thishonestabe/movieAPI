@@ -21,6 +21,11 @@ OrderSchema = mongoose.Schema({
     returnDate: {
         type: Date,
         default:  new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)
+    },
+    orderStatus: {
+        type: String,
+        default: 'Open',
+        required: true
     }
 });
 exports.orderSchema = mongoose.model('Order', OrderSchema);
