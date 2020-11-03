@@ -21,7 +21,7 @@ router.post('/register', async (req, res) => {
         })
         try {
             const savedUser = await user.save();
-            res.json(savedUser);
+            res.json({user:savedUser.name});
         }catch (e) {
             res.status(400).send(e);
         }
@@ -31,7 +31,16 @@ router.post('/register', async (req, res) => {
 
 });
 //login
-router.post('/login/',);
+router.post('/login',async (req, res) => {
+    let error = Validations.loginValidation(req.body);
+    if(error) return res.status(400).send(error);
+    let user = await User.findOne({email: req.body.email});
+    if(!user) return res.status(400).send('Email doesnt exist');
+    const validPass = await bcrypt.compare(req.body.password, user.password)
+    if(!validPass) return res.status(400).send('Invalid password')
+
+    res.send('Logged In Succesfully')
+});
 
 
 
