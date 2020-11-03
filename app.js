@@ -22,6 +22,7 @@ mongoose.connect(process.env.DB_CONNECTION,
 const moviesRouter = require('./api/movies/movies.routes');
 const ordersRouter = require('./api/orders/orders.routes');
 const usersRouter = require('./api/users/users.routes');
+const authRouter = require('./api/auth/auth.routes');
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 
@@ -30,11 +31,14 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use('/api/movies', moviesRouter);
 app.use('/api/orders',ordersRouter);
 app.use('/api/users', usersRouter);
+app.use('/api/auth', authRouter);
 //
 //
 // app.use(errorController.get404);
 //
 // app.use(errorController.handdleError)
 
-app.listen(port);
+app.listen(port, ()=> {
+    console.log("servier running on port: ",port);
+});
 
