@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const Joi = require('joi');
 
 OrderSchema = mongoose.Schema({
     movieId: {
@@ -23,3 +24,18 @@ OrderSchema = mongoose.Schema({
     }
 });
 exports.orderSchema = mongoose.model('Order', OrderSchema);
+
+const orderValidationSchema = (val) => {
+    const schema = Joi.object({
+
+        movieId: Joi.string().required(),
+        userId: Joi.string().required(),
+        movieTitle: Joi.string().required(),
+    })
+
+    const {error} = schema.validate(val);
+    return error
+}
+
+exports.orderValidationSchema = orderValidationSchema;
+
